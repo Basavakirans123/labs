@@ -29,3 +29,9 @@ Set JAVA_HOME & MAVEN_HOME as environment variables on Jenkins machine
 	sudo echo "JAVA_HOME=\"/usr/lib/jvm/java-8-openjdk-amd64\"" >> /etc/profile 
 	sudo echo "PATH=\$JAVA_HOME/bin:\$MAVEN_HOME/bin:\$PATH" >> /etc/profile
 	source /etc/profile
+	
+cd $WORKSPACE
+echo $WORKSPACE
+docker build -f Dockerfile -t basavakirans/myapps:$BUILD_NUMBER .
+docker login -u basavakirans -p $DOCKER_HUB_PWD
+docker push basavakirans/myapps:$BUILD_NUMBER
